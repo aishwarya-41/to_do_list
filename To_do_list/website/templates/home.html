@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To do List</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='styles.css')}}" />
+    <script src="{{url_for('static', filename='script.js')}}" defer></script>
+</head>
+<body id="top">
+    <header>
+        <!--  
+        <select id="s1" onchange="lightDark()">
+            <option value="light">☀️ Light</option>
+            <option value="dark">🌙 Dark</option>
+        </select>
+        -->
+       <img src="{{url_for('static', filename='to-do2.png')}}" alt="To-do List" id="to-do"> 
+        {%if user.is_authenticated%}
+        <a id="logout" href="/logout">Logout</a>
+        {%else%}
+         <a href="/login">Login</a>
+        {% endif %}
+    </header>
+
+    <h1>✨ My Tasks</h1>
+    <div align="center">
+        {% with messages = get_flashed_messages()%}
+        {% if messages%}
+        {% for message in messages %}
+            <p class="flash">{{ message }}
+                <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+            </p>
+         {% endfor %}
+        {% endif %}
+        {% endwith %}
+    </div>
+    <form id="d1" method="POST">
+    <div id="d2">
+    <input id="i1" name="i1" type="text" placeholder="Add a new task..."/>
+    <button type="submit" id="b1"> + Add Task</button>
+    <!-- <button type="submit" id="b1" onclick="addItem()"> + Add Task</button> -->
+    </div>
+    <div id="d3">
+        <button type="button" class="b2" onclick="showSelected(event)"></button>
+    </div>
+
+    <ul id="u1">
+        {% for item in user.items %}
+            <li>
+                <input id="check" type="checkbox">
+                {{ item.data }}
+                <button type="button"  onClick="deleteItem({{ item.id }})">x</button>
+            </li>
+        {% endfor %}
+    </ul>
+    </form>
+    <!-- <button id="b2" onclick="removeItem()">Remove Item</button>  
+    <input id="i2" type="text" /> -->
+
+    <footer>
+        <a href="#top"><img src="{{url_for('static',filename='arrow.png')}}" alt=""></a>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='login.css')}}">
+    <script src="login.js" defer></script>
+</head>
+<body>
+    <header>
+        <!-- 
+        <select id="s1" onchange="lightDark()">
+            <option value="light">☀️ Light</option>
+            <option value="dark">🌙 Dark</option>
+        </select>
+         -->
+        <img src="{{url_for('static', filename='to-do.png')}}" alt="To-do List">
+    </header>
+    <h1>Login</h1>
+    <div align="center">
+        {% with messages = get_flashed_messages()%}
+        {% if messages%}
+        {% for message in messages %}
+            <p class="flash">{{ message }}
+                <span class="close-btn" onclick="this.parentElement.style.display='none';">&times;</span>
+            </p>
+         {% endfor %}
+        {% endif %}
+        {% endwith %}
+     </div>
+    <form action="/login" method="POST">
+        <div class="d2">
+             <input class="i1" id="email" name ="email" type="email" placeholder="Enter email">
+        </div>
+        <div class="d2">
+            <input class="i1" id="password" name ="password" type="password" placeholder="Enter password">
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <div id="d3">
+         <p>Do not have an account?</p>
+         <a href="/signup">Sign up</a>
+    </div>
+</body>
+</html>
